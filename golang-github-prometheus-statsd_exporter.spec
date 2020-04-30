@@ -1,4 +1,5 @@
 %global repo    statsd_exporter
+%global debug_package %{nil}
 %undefine _missing_build_ids_terminate_build
 
 Name:           golang-github-prometheus-statsd_exporter
@@ -32,8 +33,8 @@ This package contains the statsd exporter.
 %setup -q -n %{repo}-master
 
 %build
-#sed -i "s/    flags: -mod=vendor -a -tags 'netgo static_build'/    flags: -mod=vendor -a -tags netgo static_build\n    ldflags:\n       -compressdwarf=false/" .promu.yml
-sed -i "s/    flags: -mod=vendor -a -tags 'netgo static_build'/    flags: -mod=vendor -a -tags 'netgo static_build'\n    ldflags:\n       -compressdwarf=false\n    binaries:\n      - name: statsd_exporter/" .promu.yml
+sed -i "/BuildDate=*/a -compressdwarf=false" .promu.yml
+sed -i "s/-compressdwarf=false/        -compressdwarf=false\n    binaries:\n      - name: statsd_exporter/" .promu.yml
 GO111MODULE=on promu build -v
 
 %install

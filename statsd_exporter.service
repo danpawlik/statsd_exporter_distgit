@@ -7,7 +7,7 @@ After=network-online.target
 User=root
 Restart=on-failure
 EnvironmentFile=/etc/sysconfig/statsd_exporter
-ExecStart=/opt/statsd_exporter/statsd_exporter $OPTIONS
+ExecStart=/usr/bin/statsd_exporter $OPTIONS
 
 [Install]
 WantedBy=multi-user.target
